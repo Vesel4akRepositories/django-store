@@ -1,0 +1,135 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-8">
+        <div class="card">
+          <div class="card-header">
+            <h1 class="text-center">Регистрация</h1>
+          </div>
+          <div class="card-body">
+            <form method="post" class="needs-validation">
+              {% csrf_token %}
+              <div class="form-group row">
+                <label for="{{ form.name.id_for_label }}" class="col-sm-3 col-form-label">Name:</label>
+                <div class="col-sm-9">
+                  {{ form.name }}
+                  <div class="invalid-feedback">
+                    {{ form.name.errors }}
+                  </div>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="{{ form.surname.id_for_label }}" class="col-sm-3 col-form-label">Surname:</label>
+                <div class="col-sm-9">
+                  {{ form.surname }}
+                  <div class="invalid-feedback">
+                    {{ form.surname.errors }}
+                  </div>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="{{ form.patronymic.id_for_label }}" class="col-sm-3 col-form-label">Patronymic:</label>
+                <div class="col-sm-9">
+                  {{ form.patronymic }}
+                  <div class="invalid-feedback">
+                    {{ form.patronymic.errors }}
+                  </div>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="{{ form.login.id_for_label }}" class="col-sm-3 col-form-label">Login:</label>
+                <div class="col-sm-9">
+                  {{ form.login }}
+                  <div class="invalid-feedback">
+                    {{ form.login.errors }}
+                  </div>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="{{ form.email.id_for_label }}" class="col-sm-3 col-form-label">Email:</label>
+                <div class="col-sm-9">
+                  {{ form.email }}
+                  <div class="invalid-feedback">
+                    {{ form.email.errors }}
+                  </div>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="{{ form.password1.id_for_label }}" class="col-sm-3 col-form-label">Password:</label>
+                <div class="col-sm-9">
+                  {{ form.password1 }}
+                  <div class="invalid-feedback">
+                    {{ form.password1.errors }}
+                  </div>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="{{ form.password2.id_for_label }}" class="col-sm-3 col-form-label">Confirm Password:</label>
+                <div class="col-sm-9">
+                  {{ form.password2 }}
+                  <div class="invalid-feedback">
+                    {{ form.password2.errors }}
+                  </div>
+                </div>
+              </div>
+              <div class="form-group row">
+                <div class="offset-sm-3 col-sm-9">
+                  <div class="form-check">
+                    {{ form.rules.errors }}
+                    <input class="form-check-input" type="checkbox" id="{{ form.rules.id_for_label }}" name="{{ form.rules.html_name }}">
+                    <label class="form-check-label" for="{{ form.rules.id_for_label }}">Согласен с условиями пользования и политикой конфиденциальности</label>
+                    <div class="invalid-feedback">
+                      {{ form.rules.errors }}
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group row">
+                <div class="offset-sm-3 col-sm-9">
+                  <button type="submit" class="btn btn-primary mt-3">Зарегистрироваться</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- JavaScript код для валидации и всплывающего окна -->
+<script>
+  // Отключаем стандартную валидацию формы браузером
+  (function() {
+    'use strict';
+    window.addEventListener('load', function() {
+      // Получаем все формы, к которым мы хотим применить стили проверки Bootstrap
+      var forms = document.getElementsByClassName('needs-validation');
+      // Зацикливаем их и предотвращаем отправку
+      var validation = Array.prototype.filter.call(forms, function(form) {
+        form.addEventListener('submit', function(event) {
+          console.log('submit');
+          if (form.checkValidity() === false) {
+            event.preventDefault();
+            event.stopPropagation();
+            // Добавляем класс 'was-validated' для стилей проверки Bootstrap
+            form.classList.add('was-validated');
+            // Обрабатываем невалидные поля и показываем всплывающие сообщения
+            var invalidFields = form.querySelectorAll(':invalid');
+            invalidFields.forEach(function(field) {
+              // Создаем элемент span для всплывающего сообщения
+              var feedback = document.createElement('span');
+              feedback.classList.add('invalid-tooltip');
+              feedback.innerHTML = field.validationMessage;
+              // Добавляем всплывающее сообщение после невалидного поля
+              field.parentNode.appendChild(feedback);
+            });
+          }
+        }, false);
+      });
+    }, false);
+  })();
+</script>
+
+{% endblock %}

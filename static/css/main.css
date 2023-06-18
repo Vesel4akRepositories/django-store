@@ -1,0 +1,26 @@
+.invalid-feedback {
+    display: block;
+    color: red;
+    margin-top: 5px;
+  }
+
+  .cart-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .cart-table th,
+  .cart-table td {
+    padding: 8px;
+    border: 1px solid #ddd;
+  }
+  
+  .cart-table th {
+    background-color: #f5f5f5;
+  }
+  
+  .cart-total {
+    font-weight: bold;
+    margin-top: 20px;
+  }
+  

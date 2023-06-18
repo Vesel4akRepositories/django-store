@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="container">
+    <h1 class="mt-4">{{ product.name }}</h1>
+    <div class="row">
+      <div class="col-md-6">
+        <img src="{{ product.image.url }}" alt="{{ product.name }}" class="img-fluid">
+      </div>
+      <div class="col-md-6">
+        <p class="lead">Цена: ${{ product.price }}</p>
+        <p class="lead">Категория: {{ product.category }}</p>
+        <p class="lead">Год: {{ product.year }}</p>
+        {% if product.is_available %}
+          <p class="lead">Доступность: В наличии</p>
+        {% else %}
+          <p class="lead">Доступность: Нет в наличии</p>
+        {% endif %}
+        <div class="mb-4">
+          <h4 class="fw-bold">Описание:</h4>
+          <p>{{ product.description }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

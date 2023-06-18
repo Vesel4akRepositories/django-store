@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1 class="display-4 mb-4">Cart</h1>
+  <div class="table-responsive">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Product</th>
+          <th>Quantity</th>
+          <th>Price</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for item in cart_items %}
+          <tr>
+            <td>{{ item.product.name }}</td>
+            <td>{{ item.quantity }}</td>
+            <td>${{ item.product.price }}</td>
+            <td>
+             
+              <form method="post" action="{% url 'decrease_quantity' item.product.id %}" class="d-inline">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-sm btn-secondary">-</button>
+              </form>
+              <form method="post" action="{% url 'increase_quantity' item.product.id %}" class="d-inline">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-sm btn-primary">+</button>
+              </form>
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  <div class="text-end">
+    <p class="lead">Total: ${{ cart_total }}</p>
+  </div>
+
+  <div class="text-center">
+    <form method="post" action="{% url 'checkout' %}" class="d-flex flex-column align-items-center">
+      {% csrf_token %}
+      <div class="form-group">
+        <label for="password" class="form-label">Enter your password:</label>
+        <input type="password" name="password" id="password" class="form-control" placeholder="Password" required>
+        {% if messages %}
+        <ul class="messages">
+          {% for message in messages %}
+          <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+          {% endfor %}
+        </ul>
+        {% endif %}
+      </div>
+      <button type="submit" class="btn btn-primary">Place Order</button>
+    </form>
+  </div>
+{% endblock %}
